@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Photo from './components/photo/Photo';
-import LargeText from './components/largeText/LargeText';
+import NormalText from './components/normalText/NormalText';
+import RecentScoreBoard from './scenes/recentScores/RecentScoreBoard';
 
 export default class Test extends Component {
   render() {
@@ -11,7 +12,10 @@ export default class Test extends Component {
           <Photo imageUrl="https://goo.gl/6qpk6j" />
         </div>
         <div>
-          <LargeText text="LargeText : Sherlock Holmes" />
+          <NormalText text="NormalText :Sherlock Holmes" />
+        </div>
+        <div>
+          <RecentScoreBoard />
         </div>
       </div>
     );
