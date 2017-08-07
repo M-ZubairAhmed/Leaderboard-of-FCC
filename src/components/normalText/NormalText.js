@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class LargeText extends Component {
+export default class NormalText extends Component {
   render() {
     return (
       <h4>
