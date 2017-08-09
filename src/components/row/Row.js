@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Photo from '../../components/photo/Photo';
+import { Progress } from 'semantic-ui-react';
 
 export default class Row extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class Row extends Component {
         <div>
           {this.props.lastUpdate}
         </div>
+        <Progress percent={this.props.percentileScore} size="tiny" />
       </div>
     );
   }
