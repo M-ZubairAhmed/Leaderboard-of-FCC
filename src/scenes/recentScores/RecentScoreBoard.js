@@ -12,6 +12,7 @@ export default class RecentScoreBoard extends Component {
   }
 
   async componentDidMount() {
+    // console.log('componentDidMount');
     let fetchStatus = 'done';
     let responseJson = '';
     try {
@@ -21,6 +22,9 @@ export default class RecentScoreBoard extends Component {
       // Check if theres a successfull network call
       if (response.ok) {
         responseJson = await response.json();
+        this.setState({
+          dataFromNetwork: responseJson
+        });
       } else {
         console.log('Server responded with message', response.status);
         fetchStatus = 'failed';
@@ -31,35 +35,55 @@ export default class RecentScoreBoard extends Component {
     } finally {
       console.log('Fetching of Data', fetchStatus);
       this.setState({
-        loadingStatus: fetchStatus,
-        dataFromNetwork: responseJson
+        loadingStatus: fetchStatus
       });
     }
   }
 
   renderIndividualRows = () => {
-    let row = '';
+    // console.log('renderIndividualRows');
     if (this.state.loadingStatus === 'done') {
       const data = this.state.dataFromNetwork;
-      row = data.map(datum =>
-        <Row
-          key={datum.username}
-          username={datum.username}
-          img={datum.img}
-          alltime={datum.alltime}
-          recent={datum.recent}
-          lastUpdate={datum.lastUpdate}
-        />
-      );
       return (
         <div>
-          {row}
+          {data.map(datum =>
+            <Row
+              key={datum.username}
+              percentileScore={this.percentileCalculation(datum.recent)}
+              username={datum.username}
+              img={datum.img}
+              alltime={datum.alltime}
+              recent={datum.recent}
+              lastUpdate={datum.lastUpdate}
+            />
+          )}
         </div>
       );
+      // row = data.map(datum =>
+      //   <Row
+      //     key={datum.username}
+      //     username={datum.username}
+      //     img={datum.img}
+      //     alltime={datum.alltime}
+      //     recent={datum.recent}
+      //     lastUpdate={datum.lastUpdate}
+      //   />
+      // );
+      // return (
+      //   <div>
+      //     {row}
+      //   </div>
+      // );
     }
   };
 
+  percentileCalculation = score => {
+    const highestScore = this.state.dataFromNetwork[0].recent;
+    return ~~(score / highestScore * 100);
+  };
+
   render() {
+    // console.log('rendering');
     return (
       <div>
         {this.renderIndividualRows()}

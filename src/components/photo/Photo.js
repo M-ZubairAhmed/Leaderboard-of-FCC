@@ -7,7 +7,7 @@ export default class Photo extends Component {
       <div>
         <img
           src={this.props.imageUrl}
-          alt="profile of fcc users"
+          alt="profile of an fcc users"
           className="profilePhoto"
         />
       </div>
