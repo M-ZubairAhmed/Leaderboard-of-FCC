@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Loader from '../../components/loader/Loader';
 import Row from '../../components/row/Row';
+import moment from 'moment';
 
 export default class RecentScoreBoard extends Component {
   constructor(props) {
@@ -54,32 +55,21 @@ export default class RecentScoreBoard extends Component {
               img={datum.img}
               alltime={datum.alltime}
               recent={datum.recent}
-              lastUpdate={datum.lastUpdate}
+              lastUpdate={this.timeFromNowCalculation(datum.lastUpdate)}
             />
           )}
         </div>
       );
-      // row = data.map(datum =>
-      //   <Row
-      //     key={datum.username}
-      //     username={datum.username}
-      //     img={datum.img}
-      //     alltime={datum.alltime}
-      //     recent={datum.recent}
-      //     lastUpdate={datum.lastUpdate}
-      //   />
-      // );
-      // return (
-      //   <div>
-      //     {row}
-      //   </div>
-      // );
     }
   };
 
   percentileCalculation = score => {
     const highestScore = this.state.dataFromNetwork[0].recent;
     return ~~(score / highestScore * 100);
+  };
+
+  timeFromNowCalculation = lastUpdate => {
+    return moment(lastUpdate).fromNow();
   };
 
   render() {
