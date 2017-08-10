@@ -132,7 +132,6 @@ export default class RecentScoreBoard extends Component {
     // console.log('rendering');
     return (
       <div>
-        <button onClick={this.refreshScores}>Refresh</button>
         <Icon
           loading={this.state.refreshProgress}
           name="repeat"
