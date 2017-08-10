@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Loader from '../../components/loader/Loader';
 import Row from '../../components/row/Row';
-import { Icon } from 'semantic-ui-react';
 import moment from 'moment';
+import RefreshButtonUI from '../../components/refreshButtonUI/RefreshButtonUI';
 
 export default class RecentScoreBoard extends Component {
   constructor(props) {
@@ -10,22 +10,22 @@ export default class RecentScoreBoard extends Component {
     this.state = {
       currentData: '',
       loadingStatus: 'initial',
-      refreshProgress: false
+      animatingDataRefreshIcon: false,
+      shouldRefreshTimerStart: false
     };
-    // this.refreshScores = this.refreshScores.bind(this);
   }
 
   async componentDidMount() {
     const response = await this.downloadData();
     if (response === 'failed') {
-      console.log('aaaa failed');
       this.setState({
         loadingStatus: 'failed'
       });
     } else {
       this.setState({
         currentData: response,
-        loadingStatus: 'success'
+        loadingStatus: 'success',
+        shouldRefreshTimerStart: true
       });
     }
   }
@@ -82,36 +82,37 @@ export default class RecentScoreBoard extends Component {
 
   refreshScores = async () => {
     this.setState({
-      refreshProgress: true
+      animatingDataRefreshIcon: true,
+      shouldRefreshTimerStart: false
     });
     const latestData = await this.downloadData();
     if (this.state.loadingStatus === 'success' && latestData !== 'failed') {
       const latestData_Stringy = JSON.stringify(latestData);
       const previousJSON_Stringy = JSON.stringify(this.state.currentData);
-      if (latestData_Stringy === previousJSON_Stringy) {
-        console.log('data is upto date'); //TODO
-      } else {
+      if (latestData_Stringy !== previousJSON_Stringy) {
         this.setState({
           currentData: latestData
         });
       }
+      this.setState({
+        shouldRefreshTimerStart: true
+      });
     } else {
-      console.log('Request to update failed !'); //TODO
+      //TODO make a model displaying why it cannot refresh
     }
     this.setState({
-      refreshProgress: false
+      animatingDataRefreshIcon: false
     });
   };
 
   render() {
-    console.log('rendering');
+    // console.log('rendering');
     return (
       <div>
-        <Icon
-          loading={this.state.refreshProgress}
-          name="repeat"
+        <RefreshButtonUI
+          loading={this.state.animatingDataRefreshIcon}
           onClick={this.refreshScores}
-          link
+          shouldRefreshTimerStart={this.state.shouldRefreshTimerStart}
         />
         {this.renderIndividualRows()}
         <Loader loadingStatus={this.state.loadingStatus} />
