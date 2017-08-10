@@ -4,6 +4,7 @@ import moment from 'moment';
 
 let intervalID = '';
 let startTime = moment().toISOString();
+
 export default class RefreshButtonUI extends Component {
   constructor(props) {
     super(props);
@@ -14,13 +15,9 @@ export default class RefreshButtonUI extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.shouldRefreshTimerStart === true) {
-      intervalID = this.startInterval();
+      intervalID = setInterval(() => this.startElapsedRefreshTime(), 30000);
     }
   }
-
-  startInterval = () => {
-    return setInterval(() => this.startElapsedRefreshTime(), 30000);
-  };
 
   startElapsedRefreshTime = () => {
     const elapsedRefreshTime = moment(startTime).fromNow();

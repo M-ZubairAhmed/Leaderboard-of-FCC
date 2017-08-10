@@ -106,7 +106,6 @@ export default class RecentScoreBoard extends Component {
   };
 
   render() {
-    // console.log('rendering');
     return (
       <div>
         <RefreshButtonUI
