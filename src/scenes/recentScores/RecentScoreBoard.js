@@ -109,7 +109,7 @@ export default class RecentScoreBoard extends Component {
     return (
       <div>
         <RefreshButtonUI
-          loading={this.state.animatingDataRefreshIcon}
+          animatingDataRefreshIcon={this.state.animatingDataRefreshIcon}
           onClick={this.refreshScores}
           shouldRefreshTimerStart={this.state.shouldRefreshTimerStart}
         />

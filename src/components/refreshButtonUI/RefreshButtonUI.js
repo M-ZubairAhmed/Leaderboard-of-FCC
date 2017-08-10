@@ -35,7 +35,11 @@ export default class RefreshButtonUI extends Component {
   render() {
     return (
       <div onClick={this.resetElapsedRefreshTime}>
-        <Icon loading={this.props.loading} name="repeat" link />
+        <Icon
+          loading={this.props.animatingDataRefreshIcon}
+          name="repeat"
+          link
+        />
         <div>
           {this.props.lastUpdated}
         </div>
