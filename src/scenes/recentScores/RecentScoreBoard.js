@@ -8,87 +8,62 @@ export default class RecentScoreBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentData: '',
       loadingStatus: 'initial',
-      dataFromNetwork: '',
       refreshProgress: false
     };
     // this.refreshScores = this.refreshScores.bind(this);
   }
 
   async componentDidMount() {
-    // console.log('componentDidMount');
-    let fetchStatus = 'done';
-    let responseJson = '';
-    try {
-      const response = await fetch(
-        'https://fcctop100.herokuapp.com/api/fccusers/top/recent'
-      );
-      // Check if theres a successfull network call
-      if (response.ok) {
-        responseJson = await response.json();
-        this.setState({
-          dataFromNetwork: responseJson
-        });
-      } else {
-        console.log('Server responded with message', response.status);
-        fetchStatus = 'failed';
-      }
-    } catch (e) {
-      console.log(e.message);
-      fetchStatus = 'failed';
-    } finally {
-      console.log('Fetching of Data', fetchStatus);
+    const response = await this.downloadData();
+    if (response === 'failed') {
+      console.log('aaaa failed');
       this.setState({
-        loadingStatus: fetchStatus
+        loadingStatus: 'failed'
+      });
+    } else {
+      this.setState({
+        currentData: response,
+        loadingStatus: 'success'
       });
     }
   }
 
-  async downloadJSON() {
-    let fetchStatus = 'done';
-    let responseJson = '';
+  async downloadData() {
+    let response = 'failed';
     try {
-      const response = await fetch(
+      const request = await fetch(
         'https://fcctop100.herokuapp.com/api/fccusers/top/recent'
       );
-      // Check if theres a successfull network call
-      if (response.ok) {
-        responseJson = await response.json();
-        // this.setState({
-        //   dataFromNetwork: responseJson
-        // });
-        return await responseJson;
+      if (request.ok) {
+        response = await request.json();
       } else {
-        console.log('Server responded with message', response.status);
-        fetchStatus = 'failed';
+        console.log('Server responded with message :-', request.status);
       }
     } catch (e) {
-      console.log(e.message);
-      fetchStatus = 'failed';
-      return await fetchStatus;
+      console.log('Error while requesting for JSON :-', e.message);
     } finally {
-      console.log('Fetching of Data', fetchStatus);
-      // this.setState({
-      //   loadingStatus: fetchStatus
-      // });
+      return response;
     }
   }
 
   renderIndividualRows = () => {
-    // console.log('renderIndividualRows');
-    if (this.state.loadingStatus === 'done') {
-      const data = this.state.dataFromNetwork;
+    if (
+      this.state.loadingStatus === 'success' &&
+      this.state.currentData !== ''
+    ) {
       return (
         <div>
-          {data.map(datum =>
+          {this.state.currentData.map(currentDatum =>
             <Row
-              key={datum.username}
-              percentileScore={this.percentileCalculation(datum.recent)}
-              username={datum.username}
-              img={datum.img}
-              alltime={datum.alltime}
-              recent={datum.recent}
-              lastUpdate={this.timeFromNowCalculation(datum.lastUpdate)}
+              key={currentDatum.username}
+              percentileScore={this.percentileCalculation(currentDatum.recent)}
+              username={currentDatum.username}
+              img={currentDatum.img}
+              alltime={currentDatum.alltime}
+              recent={currentDatum.recent}
+              lastUpdate={this.timeFromNowCalculation(currentDatum.lastUpdate)}
             />
           )}
         </div>
@@ -97,7 +72,7 @@ export default class RecentScoreBoard extends Component {
   };
 
   percentileCalculation = score => {
-    const highestScore = this.state.dataFromNetwork[0].recent;
+    const highestScore = this.state.currentData[0].recent;
     return ~~(score / highestScore * 100);
   };
 
@@ -109,19 +84,19 @@ export default class RecentScoreBoard extends Component {
     this.setState({
       refreshProgress: true
     });
-    const updatedJSON = await this.downloadJSON();
-    if (
-      this.state.dataFromNetwork !== '' &&
-      this.state.loadingStatus === 'done' &&
-      updatedJSON !== 'failed'
-    ) {
-      const updatedJSON_Stringi = JSON.stringify(updatedJSON);
-      const previousJSON_Stringi = JSON.stringify(this.state.dataFromNetwork);
-      if (updatedJSON_Stringi === previousJSON_Stringi) {
-        console.log('no change');
+    const latestData = await this.downloadData();
+    if (this.state.loadingStatus === 'success' && latestData !== 'failed') {
+      const latestData_Stringy = JSON.stringify(latestData);
+      const previousJSON_Stringy = JSON.stringify(this.state.currentData);
+      if (latestData_Stringy === previousJSON_Stringy) {
+        console.log('data is upto date'); //TODO
+      } else {
+        this.setState({
+          currentData: latestData
+        });
       }
     } else {
-      console.log('error');
+      console.log('Request to update failed !'); //TODO
     }
     this.setState({
       refreshProgress: false
@@ -129,7 +104,7 @@ export default class RecentScoreBoard extends Component {
   };
 
   render() {
-    // console.log('rendering');
+    console.log('rendering');
     return (
       <div>
         <Icon
