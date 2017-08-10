@@ -7,7 +7,7 @@ export default class Loader extends Component {
     if (this.props.loadingStatus === 'initial') {
       return <div className="loader" />;
     } else if (this.props.loadingStatus === 'failed') {
-      return <div />;
+      return <div>Failed</div>;
     } else {
       return <div />;
     }
@@ -15,5 +15,5 @@ export default class Loader extends Component {
 }
 
 Loader.propTypes = {
-  loadingStatus: PropTypes.oneOf(['initial', 'failed', 'done']).isRequired
+  loadingStatus: PropTypes.oneOf(['initial', 'failed', 'success']).isRequired
 };
