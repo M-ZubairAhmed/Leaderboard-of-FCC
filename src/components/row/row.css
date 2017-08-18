@@ -1,0 +1,61 @@
+.row-root {
+  display: grid;
+  grid-template-columns: 15% 4% 1fr 15%;
+  grid-template-rows: 40px 40px;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0px 0.1px 0.1px 0px rgba(0, 0, 0, 0.3);
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.row-img {
+  grid-column: 1/2;
+  grid-row: 1/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row-pos {
+  grid-column: 2/2;
+  grid-row: 1/2;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.row-name {
+  grid-column: 3/3;
+  grid-row: 1/2;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.row-scr {
+  grid-column: 4/4;
+  grid-row: 1/2;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.row-upd {
+  grid-column: 4/4;
+  grid-row: 2/2;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  font-style: italic;
+}
+
+.row-prg {
+  grid-column: 2/4;
+  grid-row: 2/2;
+  padding-top: 17px;
+  padding-right: 5px;
+}
+
+.ui.tiny.progress {
+  background: rgba(0, 0, 0, 0);
+}

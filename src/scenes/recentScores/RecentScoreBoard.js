@@ -55,14 +55,15 @@ export default class RecentScoreBoard extends Component {
     ) {
       return (
         <div>
-          {this.state.currentData.map(currentDatum =>
+          {this.state.currentData.map((currentDatum, index) =>
             <Row
+              position={index + 1}
               key={currentDatum.username}
               percentileScore={this.percentileCalculation(currentDatum.recent)}
               username={currentDatum.username}
               img={currentDatum.img}
-              alltime={currentDatum.alltime}
-              recent={currentDatum.recent}
+              // alltime={currentDatum.alltime}
+              score={currentDatum.recent}
               lastUpdate={this.timeFromNowCalculation(currentDatum.lastUpdate)}
             />
           )}

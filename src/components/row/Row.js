@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import Photo from '../../components/photo/Photo';
 import { Progress } from 'semantic-ui-react';
+import './row.css';
 
 export default class Row extends Component {
   render() {
     return (
-      <div>
-        <Photo imageUrl={this.props.img} />
-        <div>
+      <div className="row-root">
+        <div className="row-img">
+          <Photo imageUrl={this.props.img} />
+        </div>
+        <div className="row-pos">
+          {this.props.position} .
+        </div>
+        <div className="row-name">
           {this.props.username}
         </div>
-        <div>
-          {this.props.alltime}
+        <div className="row-scr">
+          {this.props.score}
         </div>
-        <div>
-          {this.props.recent}
-        </div>
-        <div>
+        <div className="row-upd">
           {this.props.lastUpdate}
         </div>
-        <Progress percent={this.props.percentileScore} size="tiny" />
+        <div className="row-prg">
+          <Progress percent={this.props.percentileScore} size="tiny" />
+        </div>
       </div>
     );
   }
