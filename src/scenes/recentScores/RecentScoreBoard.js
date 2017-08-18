@@ -64,7 +64,7 @@ export default class RecentScoreBoard extends Component {
               img={currentDatum.img}
               // alltime={currentDatum.alltime}
               score={currentDatum.recent}
-              lastUpdate={this.timeFromNowCalculation(currentDatum.lastUpdate)}
+              // lastUpdate={this.timeFromNowCalculation(currentDatum.lastUpdate)}
             />
           )}
         </div>
@@ -77,34 +77,34 @@ export default class RecentScoreBoard extends Component {
     return ~~(score / highestScore * 100);
   };
 
-  timeFromNowCalculation = lastUpdate => {
-    return moment(lastUpdate).fromNow();
-  };
+  // timeFromNowCalculation = lastUpdate => {
+  //   return moment(lastUpdate).fromNow();
+  // };
 
-  refreshScores = async () => {
-    this.setState({
-      animatingDataRefreshIcon: true,
-      shouldRefreshTimerStart: false
-    });
-    const latestData = await this.downloadData();
-    if (this.state.loadingStatus === 'success' && latestData !== 'failed') {
-      const latestData_Stringy = JSON.stringify(latestData);
-      const previousJSON_Stringy = JSON.stringify(this.state.currentData);
-      if (latestData_Stringy !== previousJSON_Stringy) {
-        this.setState({
-          currentData: latestData
-        });
-      }
-      this.setState({
-        shouldRefreshTimerStart: true
-      });
-    } else {
-      //TODO make a model displaying why it cannot refresh
-    }
-    this.setState({
-      animatingDataRefreshIcon: false
-    });
-  };
+  // refreshScores = async () => {
+  //   this.setState({
+  //     animatingDataRefreshIcon: true,
+  //     shouldRefreshTimerStart: false
+  //   });
+  //   const latestData = await this.downloadData();
+  //   if (this.state.loadingStatus === 'success' && latestData !== 'failed') {
+  //     const latestData_Stringy = JSON.stringify(latestData);
+  //     const previousJSON_Stringy = JSON.stringify(this.state.currentData);
+  //     if (latestData_Stringy !== previousJSON_Stringy) {
+  //       this.setState({
+  //         currentData: latestData
+  //       });
+  //     }
+  //     this.setState({
+  //       shouldRefreshTimerStart: true
+  //     });
+  //   } else {
+  //     //TODO make a model displaying why it cannot refresh
+  //   }
+  //   this.setState({
+  //     animatingDataRefreshIcon: false
+  //   });
+  // };
 
   render() {
     return (
