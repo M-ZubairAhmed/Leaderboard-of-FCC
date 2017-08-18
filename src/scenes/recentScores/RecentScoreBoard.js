@@ -109,11 +109,11 @@ export default class RecentScoreBoard extends Component {
   render() {
     return (
       <div>
-        <RefreshButtonUI
+        {/* <RefreshButtonUI
           animatingDataRefreshIcon={this.state.animatingDataRefreshIcon}
           onClick={this.refreshScores}
           shouldRefreshTimerStart={this.state.shouldRefreshTimerStart}
-        />
+        /> */}
         {this.renderIndividualRows()}
         <Loader loadingStatus={this.state.loadingStatus} />
       </div>

@@ -6,6 +6,9 @@
   box-shadow: 0px 0.1px 0.1px 0px rgba(0, 0, 0, 0.3);
   padding-bottom: 15px;
   padding-top: 15px;
+  color: #888888;
+  font-weight: bolder;
+  font-size: 1.1em;
 }
 
 .row-img {
@@ -58,4 +61,7 @@
 
 .ui.tiny.progress {
   background: rgba(0, 0, 0, 0);
+}
+.ui.tiny.progress .bar {
+  box-shadow: 0px 0px 10px 2px #888888;
 }

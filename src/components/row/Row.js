@@ -17,11 +17,11 @@ export default class Row extends Component {
           {this.props.username}
         </div>
         <div className="row-scr">
-          {this.props.score}
+          {this.props.score} points
         </div>
-        <div className="row-upd">
+        {/* <div className="row-upd">
           {this.props.lastUpdate}
-        </div>
+        </div> */}
         <div className="row-prg">
           <Progress percent={this.props.percentileScore} size="tiny" />
         </div>
