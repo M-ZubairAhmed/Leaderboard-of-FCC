@@ -6,7 +6,7 @@ import {
   Switch
 } from 'react-router-dom';
 import RecentScoreBoard from './recentScores/RecentScoreBoard';
-import New from './recentScores/New';
+import AllScoreBoard from './alltimeScores/AllScoreBoard';
 import Page404 from './page404/Page404';
 import './home.css';
 
@@ -33,17 +33,8 @@ export default class Home extends Component {
             </div>
             <div className="home-frontpanel">
               <Switch>
-                <Route
-                  exact
-                  path="/"
-                  render={() =>
-                    <RecentScoreBoard url="https://fcctop100.herokuapp.com/api/fccusers/top/recent" />}
-                />
-                <Route
-                  path="/alltime"
-                  render={() =>
-                    <RecentScoreBoard url="https://fcctop100.herokuapp.com/api/fccusers/top/alltime" />}
-                />
+                <Route exact path="/" component={RecentScoreBoard} />
+                <Route path="/alltime" component={AllScoreBoard} />
                 <Route path="/*" component={Page404} />
               </Switch>
             </div>

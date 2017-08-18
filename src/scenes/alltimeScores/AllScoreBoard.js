@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Loader from '../../components/loader/Loader';
 import Row from '../../components/row/Row';
 
-export default class RecentScoreBoard extends Component {
+export default class AllScoreBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +12,7 @@ export default class RecentScoreBoard extends Component {
   }
 
   async componentDidMount() {
-    console.log('recent componentDidMount');
+    console.log('AlltimeScores', 'componentDidMount');
     const response = await this.downloadData();
     this.updateData(response);
   }
@@ -28,13 +28,14 @@ export default class RecentScoreBoard extends Component {
         loadingStatus: 'success'
       });
     }
+    console.log(('updateData', this.state.currentData));
   };
 
   async downloadData() {
     let response = 'failed';
     try {
       const request = await fetch(
-        'https://fcctop100.herokuapp.com/api/fccusers/top/recent'
+        'https://fcctop100.herokuapp.com/api/fccusers/top/alltime'
       );
       if (request.ok) {
         response = await request.json();
@@ -62,7 +63,7 @@ export default class RecentScoreBoard extends Component {
               percentileScore={this.percentileCalculation(currentDatum.recent)}
               username={currentDatum.username}
               img={currentDatum.img}
-              score={currentDatum.recent}
+              score={currentDatum.alltime}
             />
           )}
         </div>

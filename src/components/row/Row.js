@@ -19,9 +19,6 @@ export default class Row extends Component {
         <div className="row-scr">
           {this.props.score} points
         </div>
-        {/* <div className="row-upd">
-          {this.props.lastUpdate}
-        </div> */}
         <div className="row-prg">
           <Progress percent={this.props.percentileScore} size="tiny" />
         </div>
