@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
-import './home.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Switch
+} from 'react-router-dom';
 import RecentScoreBoard from './recentScores/RecentScoreBoard';
+import New from './recentScores/New';
+import Page404 from './page404/Page404';
+import './home.css';
 
 export default class Home extends Component {
   constructor(props) {
@@ -9,13 +17,30 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div className="home-root">
-        <div className="home-background" />
-        <div className="home-backpanel" />
-        <div className="home-frontpanel">
-          <RecentScoreBoard />
+      <Router>
+        <div>
+          <div className="home-root">
+            <div className="home-background" />
+            <div className="home-backpanel">
+              <div className="home-backpanel-nav">
+                <NavLink exact to="/" activeClassName="home-link-active">
+                  <div className="home-backpanel-link">Last Month</div>
+                </NavLink>
+                <NavLink to="/alltime" activeClassName="home-link-active">
+                  <div className="home-backpanel-link">All Time</div>
+                </NavLink>
+              </div>
+            </div>
+            <div className="home-frontpanel">
+              <Switch>
+                <Route exact path="/" component={RecentScoreBoard} />
+                <Route path="/alltime" component={RecentScoreBoard} />
+                <Route path="/*" component={Page404} />
+              </Switch>
+            </div>
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
