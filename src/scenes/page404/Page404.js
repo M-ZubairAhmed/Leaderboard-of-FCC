@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
 import './page404.css';
+
 const Page404 = () => {
   return (
     <div className="page404-root">

@@ -33,8 +33,17 @@ export default class Home extends Component {
             </div>
             <div className="home-frontpanel">
               <Switch>
-                <Route exact path="/" component={RecentScoreBoard} />
-                <Route path="/alltime" component={RecentScoreBoard} />
+                <Route
+                  exact
+                  path="/"
+                  render={() =>
+                    <RecentScoreBoard url="https://fcctop100.herokuapp.com/api/fccusers/top/recent" />}
+                />
+                <Route
+                  path="/alltime"
+                  render={() =>
+                    <RecentScoreBoard url="https://fcctop100.herokuapp.com/api/fccusers/top/alltime" />}
+                />
                 <Route path="/*" component={Page404} />
               </Switch>
             </div>

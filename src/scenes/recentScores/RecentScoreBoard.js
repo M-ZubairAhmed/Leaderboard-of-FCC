@@ -9,14 +9,15 @@ export default class RecentScoreBoard extends Component {
     super(props);
     this.state = {
       currentData: '',
-      loadingStatus: 'initial',
-      animatingDataRefreshIcon: false,
-      shouldRefreshTimerStart: false
+      loadingStatus: 'initial'
+      // animatingDataRefreshIcon: false,
+      // shouldRefreshTimerStart: false
     };
   }
 
   async componentDidMount() {
     const response = await this.downloadData();
+    console.log(response);
     if (response === 'failed') {
       this.setState({
         loadingStatus: 'failed'
@@ -33,9 +34,7 @@ export default class RecentScoreBoard extends Component {
   async downloadData() {
     let response = 'failed';
     try {
-      const request = await fetch(
-        'https://fcctop100.herokuapp.com/api/fccusers/top/recent'
-      );
+      const request = await fetch(this.props.url);
       if (request.ok) {
         response = await request.json();
       } else {
