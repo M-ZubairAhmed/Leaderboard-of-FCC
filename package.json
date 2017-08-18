@@ -1,6 +1,6 @@
 {
-  "name": "freec",
-  "version": "0.1.0",
+  "name": "fcc-scorecard",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "moment": "^2.18.1",

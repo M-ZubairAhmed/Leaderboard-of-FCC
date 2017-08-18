@@ -12,7 +12,6 @@ export default class RecentScoreBoard extends Component {
   }
 
   async componentDidMount() {
-    console.log('recent componentDidMount');
     const response = await this.downloadData();
     this.updateData(response);
   }

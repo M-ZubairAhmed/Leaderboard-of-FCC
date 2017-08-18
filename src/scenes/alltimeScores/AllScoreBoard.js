@@ -12,7 +12,6 @@ export default class AllScoreBoard extends Component {
   }
 
   async componentDidMount() {
-    console.log('AlltimeScores', 'componentDidMount');
     const response = await this.downloadData();
     this.updateData(response);
   }
@@ -28,7 +27,6 @@ export default class AllScoreBoard extends Component {
         loadingStatus: 'success'
       });
     }
-    console.log(('updateData', this.state.currentData));
   };
 
   async downloadData() {

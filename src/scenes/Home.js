@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  NavLink,
-  Switch
-} from 'react-router-dom';
+import { Route, NavLink, Switch } from 'react-router-dom';
 import RecentScoreBoard from './recentScores/RecentScoreBoard';
 import AllScoreBoard from './alltimeScores/AllScoreBoard';
 import Page404 from './page404/Page404';
